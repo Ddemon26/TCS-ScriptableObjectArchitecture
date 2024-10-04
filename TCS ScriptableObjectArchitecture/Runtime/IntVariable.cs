@@ -1,10 +1,7 @@
 using UnityEngine;
-
-namespace Unity.BossRoom.Infrastructure
-{
-    [CreateAssetMenu (menuName = "TCS/SOA/IntVariable", fileName = "IntVariable")]
-    public class IntVariable : ScriptableObject
-    {
-        public int Value;
+namespace TCS.ScriptableObjectArchitecture {
+    [CreateAssetMenu(menuName = "TCS/SOA/IntVariable", fileName = "IntVariable")]
+    public class IntVariable : ScriptableObject {
+        public int m_value;
     }
 }

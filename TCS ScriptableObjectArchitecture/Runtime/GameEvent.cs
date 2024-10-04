@@ -1,47 +1,35 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace Unity.BossRoom.Infrastructure
-{
+namespace TCS.ScriptableObjectArchitecture {
     /// <summary>
     /// Class for encapsulating game-related events within ScriptableObject instances. This class defines a List of
     /// GameEventListeners, which will be notified whenever this GameEvent's Raise() method is fired.
     /// </summary>
-    [CreateAssetMenu (menuName = "TCS/SOA/GameEvent", fileName = "GameEvent")]
-    public class GameEvent : ScriptableObject
-    {
-        List<IGameEventListenable> m_Listeners = new List<IGameEventListenable>();
+    [CreateAssetMenu(menuName = "TCS/SOA/GameEvent", fileName = "GameEvent")]
+    public class GameEvent : ScriptableObject {
+        List<IGameEventListenable> m_listeners = new();
 
-        public void Raise()
-        {
-            for (int i = m_Listeners.Count - 1; i >= 0; i--)
-            {
-                if (m_Listeners[i] == null)
-                {
-                    m_Listeners.RemoveAt(i);
+        public void Raise() {
+            for (int i = m_listeners.Count - 1; i >= 0; i--) {
+                if (m_listeners[i] == null) {
+                    m_listeners.RemoveAt(i);
                     continue;
                 }
 
-                m_Listeners[i].EventRaised();
+                m_listeners[i].EventRaised();
             }
         }
 
-        public void RegisterListener(IGameEventListenable listener)
-        {
-            for (int i = 0; i < m_Listeners.Count; i++)
-            {
-                if (m_Listeners[i] == listener)
-                {
+        public void RegisterListener(IGameEventListenable listener) {
+            foreach (var t in m_listeners) {
+                if (t == listener) {
                     return;
                 }
             }
 
-            m_Listeners.Add(listener);
+            m_listeners.Add(listener);
         }
 
-        public void DeregisterListener(IGameEventListenable listener)
-        {
-            m_Listeners.Remove(listener);
-        }
+        public void DeregisterListener(IGameEventListenable listener) => m_listeners.Remove(listener);
     }
 }

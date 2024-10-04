@@ -1,26 +1,21 @@
 using System;
 using UnityEngine;
-
-namespace Unity.BossRoom.Infrastructure
-{
+namespace TCS.ScriptableObjectArchitecture {
     /// <summary>
     /// ScriptableObject that stores a GUID for unique identification. The population of this field is implemented
     /// inside an Editor script.
     /// </summary>
     [Serializable]
-    public abstract class GuidScriptableObject : ScriptableObject
-    {
+    public abstract class GuidScriptableObject : ScriptableObject {
         [HideInInspector]
         [SerializeField]
-        byte[] m_Guid;
+        byte[] m_guid;
 
-        public Guid Guid => new Guid(m_Guid);
+        public Guid Guid => new(m_guid);
 
-        void OnValidate()
-        {
-            if (m_Guid.Length == 0)
-            {
-                m_Guid = Guid.NewGuid().ToByteArray();
+        void OnValidate() {
+            if (m_guid.Length == 0) {
+                m_guid = Guid.NewGuid().ToByteArray();
             }
         }
     }

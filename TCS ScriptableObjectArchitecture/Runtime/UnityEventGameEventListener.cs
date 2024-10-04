@@ -1,42 +1,27 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
-
-namespace Unity.BossRoom.Infrastructure
-{
+namespace TCS.ScriptableObjectArchitecture {
     /// <summary>
     /// This class implements the IGameEventListener interface and exposes a GameEvent that we can populate within the
     /// inspector. When this GameEvent's Raise() method is fired externally, this class will invoke a UnityEvent.
     /// </summary>
-    public class UnityEventGameEventListener : MonoBehaviour, IGameEventListenable
-    {
-        [SerializeField]
-        GameEvent m_GameEvent;
+    public class UnityEventGameEventListener : MonoBehaviour, IGameEventListenable {
+        [SerializeField] GameEvent m_gameEvent;
+        [SerializeField] UnityEvent m_response;
 
-        [SerializeField]
-        UnityEvent m_Response;
-
-        public GameEvent GameEvent
-        {
-            get => m_GameEvent;
-            set => m_GameEvent = value;
+        public GameEvent GameEvent {
+            get => m_gameEvent;
+            set => m_gameEvent = value;
         }
 
-        void OnEnable()
-        {
+        void OnEnable() {
             Assert.IsNotNull(GameEvent, "Assign this GameEvent within the editor!");
 
             GameEvent.RegisterListener(this);
         }
 
-        void OnDisable()
-        {
-            GameEvent.DeregisterListener(this);
-        }
-
-        public void EventRaised()
-        {
-            m_Response.Invoke();
-        }
+        void OnDisable() => GameEvent.DeregisterListener(this);
+        public void EventRaised() => m_response.Invoke();
     }
 }
