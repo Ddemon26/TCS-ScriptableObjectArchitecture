@@ -5,7 +5,7 @@ namespace TCS.ScriptableObjectArchitecture {
     /// Class for encapsulating game-related events within ScriptableObject instances. This class defines a List of
     /// GameEventListeners, which will be notified whenever this GameEvent's Raise() method is fired.
     /// </summary>
-    [CreateAssetMenu(menuName = "TCS/SOA/GameEvent", fileName = "GameEvent")]
+    [CreateAssetMenu(menuName = "Tent City Studio/SOA/GameEvent", fileName = "GameEvent")]
     public class GameEvent : ScriptableObject {
         List<IGameEventListenable> m_listeners = new();
 
